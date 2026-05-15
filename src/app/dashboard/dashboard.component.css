@@ -1,0 +1,132 @@
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background-color: #1e293b;
+  color: #fff;
+  padding: 24px 16px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* BRAND SECTION */
+.sidebar-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  padding: 10px 0;
+}
+
+/* TITLE */
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: 0;
+  text-align: center;
+}
+
+/* SEPARATOR LINE */
+.logo-separator {
+  width: 60%;
+  height: 1px;
+  background-color: #334155;
+  margin: 10px 0;
+  opacity: 0.6;
+}
+
+/* LOGO */
+.sidebar-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: white;
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* NAVIGATION */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin-bottom: 6px;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav ul li a i {
+  font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+  background-color: #334155;
+  color: #fff;
+}
+
+nav ul li a.active {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+/* FOOTER */
+.sidebar-footer {
+  position: absolute;
+  bottom: 24px;
+  left: 16px;
+  right: 16px;
+}
+
+/* LOGOUT BUTTON */
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-logout i {
+  font-size: 1.1rem;
+}
+
+.btn-logout:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+}
+
+/* CONTENT AREA */
+.content {
+  flex: 1;
+  padding: 32px;
+  background-color: #f8fafc;
+  overflow-y: auto;
+}

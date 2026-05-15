@@ -1,0 +1,59 @@
+<div class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- BRAND (TITLE + LOGO) -->
+    <div class="sidebar-brand">
+
+      <h4 class="sidebar-title">HRM</h4>
+
+      <div class="logo-separator"></div>
+
+      <img src="assets/immigration.png" alt="Logo" class="sidebar-logo">
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="sidebar-nav">
+      <ul>
+
+        <li>
+          <a routerLink="/dashboard/dashboard" routerLinkActive="active">
+            <i class="bi bi-people-fill"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/dashboard/register" routerLinkActive="active">
+            <i class="bi bi-people-fill"></i>
+            <span>Register Staff</span>
+          </a>
+        </li>
+
+         <li>
+          <a routerLink="/dashboard/staff-update" routerLinkActive="active">
+            <i class="bi bi-people-fill"></i>
+            <span>Update Staff</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- FOOTER -->
+    <div class="sidebar-footer">
+      <button type="button" class="btn-logout" (click)="logout()">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

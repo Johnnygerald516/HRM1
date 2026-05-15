@@ -1,0 +1,787 @@
+<div class="register-wrapper">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1 class="page-title">Register New Staff</h1>
+    <p class="page-subtitle">Fill in the details below to add a new Staff to the system</p>
+  </div>
+
+  <!-- STEPPER -->
+  <div class="stepper">
+    <div class="step-item" [class.completed]="step > 1" [class.active]="step === 1">
+      <div class="step-circle">
+        @if (step > 1) { <i class="bi bi-check-lg"></i> }
+        @else { <span>1</span> }
+      </div>
+      <span class="step-label">Personal</span>
+    </div>
+    <div class="step-line" [class.filled]="step > 1"></div>
+
+    <div class="step-item" [class.completed]="step > 2" [class.active]="step === 2">
+      <div class="step-circle">
+        @if (step > 2) { <i class="bi bi-check-lg"></i> }
+        @else { <span>2</span> }
+      </div>
+      <span class="step-label">Education</span>
+    </div>
+    <div class="step-line" [class.filled]="step > 2"></div>
+
+    <div class="step-item" [class.active]="step === 3">
+      <div class="step-circle"><span>3</span></div>
+      <span class="step-label">Employment</span>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+
+   @if (step === 1) {
+<div class="form-step">
+
+  <div class="step-header">
+    <div>
+      <h2 class="step-title">Personal Information</h2>
+      <p class="step-desc">Basic details about the staff member</p>
+    </div>
+  </div>
+
+  <div class="form-grid">
+
+    <div class="form-group">
+      <label>First Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. John" [(ngModel)]="personal.firstName"
+        required>
+      </div>
+    </div>
+
+        <div class="form-group">
+      <label>Middle Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. Gerald" [(ngModel)]="personal.middleName">
+      </div>
+    </div>
+    
+
+       <div class="form-group">
+      <label>Last Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. Doe" [(ngModel)]="personal.lastName">
+      </div>
+    </div>
+    
+        <div class="form-group">
+      <label>Country ID</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. Tanzania" [(ngModel)]="personal.countryId">
+      </div>
+    </div>
+
+    
+        <div class="form-group">
+      <label>Region Of Birth</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. Region" [(ngModel)]="personal.region">
+      </div>
+      </div>
+
+      
+        <div class="form-group">
+      <label>District Of Birth</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. District" [(ngModel)]="personal.district">
+      </div>
+    </div>
+
+      <div class="form-group">
+      <label>Address (Ward)</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. Address" [(ngModel)]="personal.address">
+      </div>
+    </div>
+   
+
+     <div class="form-group">
+      <label>NIDA</label>
+      <div class="input-wrap">
+        <i class="bi bi-envelope"></i>
+        <input type="text" placeholder="e.g. NIDA" [(ngModel)]="personal.nida">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Date of Birth</label>
+      <div class="input-wrap">
+        <i class="bi bi-envelope"></i>
+        <input type="date" placeholder="Date of Birth" [(ngModel)]="personal.DOB">
+      </div>
+    </div>
+
+   <div class="form-group">
+  <label>Marital Status</label>
+
+  <div class="input-wrap">
+    <i class="bi bi-telephone"></i>
+
+    <input
+      type="text"
+      placeholder="maritalStatus"
+      [(ngModel)]="personal.maritalStatus"
+      list="maritalOptions"
+    >
+
+    <datalist id="maritalOptions">
+      <option value="SINGLE"></option>
+      <option value="MARRIED"></option>
+      <option value="DIVORCED"></option>
+      <option value="WIDOWED"></option>
+    </datalist>
+
+  </div>
+</div>
+
+    <div class="form-group">
+      <label>Blood Group</label>
+      <div class="input-wrap">
+        <i class="bi bi-telephone"></i>
+        <input type="text" placeholder="bloodGroup" [(ngModel)]="personal.bloodGroup">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Diabilty</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. District" [(ngModel)]="personal.diasbility">
+      </div>
+    </div>
+    </div> 
+
+
+  
+
+  <div class="form-actions">
+    <span></span>
+    <button type="button" class="btn-primary" (click)="nextStep()">
+      Next Step <i class="bi bi-arrow-right"></i>
+    </button>
+  </div>
+
+</div>
+}
+
+    <!-- STEP 2: Education -->
+    @if (step === 2) {
+    <div class="form-step">
+      <div class="step-header">
+        <div>
+          <h2 class="step-title">Education Background</h2>
+          <p class="step-desc">Academic qualifications of the staff member</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+      <div class="form-group">
+  <label>Education Level</label>
+
+  <div class="input-wrap">
+    <i class="bi bi-award"></i>
+
+    <input
+      type="text"
+      placeholder="e.g. Bachelor's Degree"
+      [(ngModel)]="education.level"
+      list="educationOptions"
+    >
+
+    <datalist id="educationOptions">
+      <option value="Bachelor Degree"></option>
+      <option value="Diploma"></option>
+      <option value="Form Six"></option>
+      <option value="Certificate"></option>
+      <option value="Form Four"></option>
+    </datalist>
+
+  </div>
+</div>
+
+        
+
+        <div class="form-group">
+          <label>Institution Name</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. University of Dar es Salaam" [(ngModel)]="education.institutionName">
+          </div>
+        </div>
+       
+        <div class="form-group">
+          <label>Start Year</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g.2020" [(ngModel)]="education.startYear">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Year of Completion</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g.2020" [(ngModel)]="education.year">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Grade</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g.A" [(ngModel)]="education.grade">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Certificate Number</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. CERT123456" [(ngModel)]="education.certificateNumber">
+          </div>
+        </div>
+
+          <div class="form-group">
+          <label>Professional</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g.ICT" [(ngModel)]="education.professional">
+          </div>
+        </div>
+
+      </div>
+
+      
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="prevStep()">
+          <i class="bi bi-arrow-left"></i> Back
+        </button>
+        <button type="button" class="btn-primary" (click)="nextStep()">
+          Next Step <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    }
+
+    <!-- STEP 3: Employment -->
+
+     @if (step === 3) {
+
+<!-- <form class="form-step"  [formGroup]="employmentForm" (ngSubmit)="submit()">
+      <div class="step-header">
+        <div>
+          <h2 class="step-title">Employment Details</h2>
+          <p class="step-desc">Work history and current position</p>
+        </div>
+      </div>
+     
+       <div class="form-grid">
+        <div class="form-group">
+      <label>First Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. John" formControlName="firstName"
+        required>
+      </div>
+    </div>
+
+        <div class="form-group">
+      <label>Middle Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. Gerald" formControlName="middleName">
+      </div>
+    </div>
+    
+
+       <div class="form-group">
+      <label>Last Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. Doe" formControlName="lastName">
+      </div>
+    </div>
+
+     <div class="form-group">
+      <label>Email</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+        <input type="text" placeholder="e.g. doe@example.com" formControlName="email">
+      </div>
+    </div>
+
+  
+        <div class="form-group">
+          <label>Cheque Number</label>
+          <div class="input-wrap">
+            <i class="bi bi-award"></i>
+            <input type="text" placeholder="e.g. CH123456" formControlName="chequeNumber">
+          </div>
+        </div>
+
+        
+
+        <div class="form-group">
+          <label>PF Number</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. PF123456" formControlName="pfNumber">
+          </div>
+        </div>
+       
+         <div class="form-group">
+          <label>Rank</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. CONST" formControlName="rankId">
+          </div>
+        </div>
+
+          <div class="form-group">
+          <label>Employment Date</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="date" placeholder="e.g. 2020-01-01" formControlName="employmentDate">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Confirmation Date</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="date" placeholder="e.g. 2020-01-01" formControlName="confirmationDate">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Confirmation Date 2</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="date" placeholder="e.g. 2020-01-01" formControlName="confirmationDate2">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Promotion Date</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="date" placeholder="e.g. 2020-01-01" formControlName="promotionDate">
+          </div>
+        </div>
+
+          <div class="form-group">
+          <label>Salary Scale</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. 1,000,000" formControlName="scaleId">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Employment Status</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. Active" formControlName="statusId">
+          </div>
+        </div>
+
+          <div class="form-group">
+          <label>Region</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. region" formControlName="regionId">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>District</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. district" formControlName="districtId">
+          </div>
+        </div>
+      
+         <div class="form-group">
+          <label>Station</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. station" formControlName="stationId">
+          </div>
+        </div>
+      
+          <div class="form-group">
+          <label>Department</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. department" formControlName="departmentId">
+          </div>
+        </div>
+
+          <div class="form-group">
+          <label>Position</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. Position" formControlName="positionId">
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label>Designation</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. Designation" formControlName="designationId">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Step</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. Step" formControlName="stepId">
+          </div>
+        </div>
+        
+
+         <div class="form-group">
+          <label>Employment Type</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. Permanent" formControlName="employmentType">
+          </div>
+        </div>
+      
+          <div class="form-group">
+          <label>Account Number</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. 123456789" formControlName="accountNumber">
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label>Bank Name</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. NMB" formControlName="bankName">
+          </div>
+        </div>
+      
+         <div class="form-group">
+          <label>Emergency Contact</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="text" placeholder="e.g. NMB" formControlName="emergencyContact">
+          </div>
+        </div>
+
+         <div class="form-group">
+          <label>Hired Date</label>
+          <div class="input-wrap">
+            <i class="bi bi-building"></i>
+            <input type="date" placeholder="e.g. NMB" formControlName="hiredDate">
+          </div>
+        </div>
+
+
+      </div>
+
+      
+
+    
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="prevStep()">
+          <i class="bi bi-arrow-left"></i> Back
+        </button>
+        <button type="button" class="btn-success" (click)="submit()">
+          <i class="bi bi-check-circle"></i> Submit Registration
+        </button>
+      </div>
+  </form> -->
+
+
+
+
+
+
+
+
+
+      <form class="form-step" #f="ngForm" (ngSubmit)="createStaff(f.value)">
+
+  <div class="step-header">
+    <div>
+      <h2 class="step-title">Employment Details</h2>
+      <p class="step-desc">Work history and current position</p>
+    </div>
+  </div>
+
+  <div class="form-grid">
+
+<!--     
+    <div class="form-group">
+      <label for="FirstName">First Name</label>
+      <input type="text" id="FirstName" name="firstName" ngModel required>
+    </div> -->
+
+    
+    <!-- <div class="form-group">
+      <label for="MiddleName">Middle Name</label>
+      <input type="text" id="MiddleName" name="middleName" ngModel required>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="LastName">Last Name</label>
+      <input type="text" id="LastName" name="lastName" ngModel required>
+    </div> -->
+
+    
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" ngModel required>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="chequeNumber">Cheque Number</label>
+      <input type="text" id="chequeNumber" name="chequeNumber" ngModel required>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="PfNumber">PF Number</label>
+      <input type="text" id="PfNumber" name="pfNumber" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label for="rank_id">Rank</label>
+      <input type="number" id="rank_id" name="rankId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="employment_date">Employment Date</label>
+      <input type="date" id="employment_date" name="employmentDate" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="ConfirmationDate">Confirmation Date</label>
+      <input type="date" id="ConfirmationDate" name="confirmationDate" ngModel>
+    </div>
+
+     <div class="form-group">
+      <label for="ConfirmationDate">Confirmation Date 2</label>
+      <input type="date" id="ConfirmationDate" name="confirmationDate2" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label for="promotion_date">Promotion Date</label>
+      <input type="date" id="promotion_date" name="promotionDate" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="scale_id">Salary Scale</label>
+      <input type="number" id="scale_id" name="scaleId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="status_id">Employment Status</label>
+      <input type="number" id="status_id" name="statusId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="region_id">Region</label>
+      <input type="number" id="region_id" name="regionId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="district_id">District</label>
+      <input type="number" id="district_id" name="districtId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="station_id">Station</label>
+      <input type="number" id="station_id" name="stationId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="department_id">Department</label>
+      <input type="number" id="department_id" name="departmentId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="position_id">Position</label>
+      <input type="number" id="position_id" name="positionId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="designation_id">Designation</label>
+      <input type="number" id="designation_id" name="designationId" ngModel>
+    </div>
+
+
+    <div class="form-group">
+      <label for="step_id">Step</label>
+      <input type="number" id="step_id" name="stepId" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="employment_type">Employment Type</label>
+      <input type="text" id="employment_type" name="employmentType" ngModel>
+    </div>
+
+  
+    <div class="form-group">
+      <label for="AccountNumber">Account Number</label>
+      <input type="text" id="AccountNumber" name="accountNumber" ngModel>
+    </div>
+
+    <div class="form-group">
+      <label for="BankName">Bank Name</label>
+      <input type="text" id="BankName" name="bankName" ngModel>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="emergency_contact">Emergency Contact</label>
+      <input type="text" id="emergency_contact" name="emergencyContact" ngModel>
+    </div>
+
+  
+    <div class="form-group">
+      <label for="HiredDate">Hired Date</label>
+      <input type="date" id="HiredDate" name="hiredDate" ngModel>
+    </div>
+
+  </div>
+
+  
+  <div class="form-actions">
+    <button type="button" class="btn-secondary" (click)="prevStep()">
+      Back
+    </button>
+
+    <button type="submit" class="btn-success">
+      Submit Registration
+    </button>
+  </div>
+
+</form> 
+     }
+     
+
+     
+     
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- @if (step === 3) {
+    <div class="form-step">
+      <div class="step-header">
+        <div>
+          <h2 class="step-title">Employment Details</h2>
+          <p class="step-desc">Work history and current position</p>
+        </div>
+      </div>
+
+      
+    <div class="form-group">
+      <label>Cheque Number</label>
+      <div class="input-wrap">
+        <i class="bi bi-envelope"></i>
+        <input type="text" placeholder="e.g. CH123456" [(ngModel)]="employment.chequeNumber">
+      </div>
+    </div>
+ 
+
+    
+      <div class="form-group">
+      <label>PF Number</label>
+      <div class="input-wrap">
+        <i class="bi bi-envelope"></i>
+        <input type="text" placeholder="e.g. PF123456" [(ngModel)]="employment.pfNumber">
+      </div>
+    </div>
+
+        <div class="form-group full-width">
+          <label>Rank</label>
+          <div class="input-wrap">
+            <i class="bi bi-clock-history"></i>
+            <input type="text" placeholder="e.g. CONST" [(ngModel)]="employment.rank">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+          <label>Employment Date</label>
+          <div class="input-wrap">
+            <i class="bi bi-clock-history"></i>
+            <input type="date" placeholder="e.g. CONST" [(ngModel)]="employment.employmentDate">
+          </div>
+        </div>
+
+         <div class="form-group full-width">
+          <label>Salary Scale</label>
+          <div class="input-wrap">
+            <i class="bi bi-clock-history"></i>
+            <input type="text" placeholder="e.g. 1,00,000" [(ngModel)]="employment.salaryScale">
+          </div>
+        </div>
+
+         <div class="form-group full-width">
+          <label>Employment Status</label>
+          <div class="input-wrap">
+            <i class="bi bi-clock-history"></i>
+            <input type="text" placeholder="e.g. Active" [(ngModel)]="employment.employmentStatus">
+          </div>
+        </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="prevStep()">
+          <i class="bi bi-arrow-left"></i> Back
+        </button>
+        <button type="button" class="btn-success" (click)="submit()">
+          <i class="bi bi-check-circle"></i> Submit Registration
+        </button>
+      </div>
+    
+    } -->
+
+  </div>
+</div>
