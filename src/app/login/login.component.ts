@@ -33,7 +33,7 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private auth: Auth, private router: Router) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      checknumber: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -47,7 +47,7 @@ export class LoginComponent {
       },
       error: (error) =>{
         console.log(error);
-        alert("Invalid username or password");
+        alert("Invalid cheque number or password");
       }
     });
     }

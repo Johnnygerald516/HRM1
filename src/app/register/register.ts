@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // ✅ ADD THIS
 import { first } from 'rxjs';
 import { RegisterService } from '../core/services/register.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LookupService } from '../core/services/lookup.service';
+import { Region } from '../models/lookup.model';
 
 @Component({
   selector: 'app-register',
@@ -13,13 +15,24 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
-export class Register {
+export class Register implements OnInit {
+  regions: any[] = [];
+  districts: any[] = [];
+  stations: any[] = [];
+  genders: any[] = [];
+  ranks: any[] = [];
+  salaryScales: any[] = [];
+  salarySteps: any[] = [];
+  positions: any[] = [];
+  roles: any[] = [];  
+  countries: any[] = [];
   errorMessage: any;
 
 constructor(
   private registerService: RegisterService,
   private router: Router,
-  private fb: FormBuilder
+  private fb: FormBuilder,
+  private lookupService: LookupService
 ) {
   
   // this.employmentForm = this.fb.group({
@@ -51,27 +64,101 @@ constructor(
   // });
 }
 
-  employmentForm!: FormGroup;
+ngOnInit(): void {
+  this.loadRegions();
+  this.loadDistricts();
+  this.loadStations();
+  this.loadGenders();
+  this.loadRanks();
+  this.loadSalaryScales();
+  this.loadPosition();
+  this.loadRoles();
+  this.loadSalarySteps();
+  this.loadCountries();
+}
 
+loadRegions(){
+  this.lookupService.getLookups('REGIONS').subscribe(res => {
+    this.regions = res;
+  });
+}
+
+loadDistricts(){
+  this.lookupService.getLookups('DISTRICTS').subscribe(res => {
+    this.districts = res;
+  });
+}
+
+loadGenders(){
+  this.lookupService.getLookups('GENDERS').subscribe(res => {
+    this.genders = res;
+  });
+}
+
+loadStations(){
+  this.lookupService.getLookups('STATIONS').subscribe(res => {
+    this.stations = res;
+  });
+}
+
+loadSalaryScales(){
+  this.lookupService.getLookups('SALARY_SCALES').subscribe(res => {
+    this.salaryScales = res;
+  });
+}
+
+loadSalarySteps(){
+  this.lookupService.getLookups('SALARY_STEPS').subscribe(res => {
+    this.salarySteps = res;
+  });
+}
+
+loadRoles(){
+  this.lookupService.getLookups('ROLES').subscribe(res => {
+    this.roles = res;
+  });
+}
+
+loadPosition(){
+  this.lookupService.getLookups('POSITIONS').subscribe(res => {
+    this.positions = res;
+  });
+}
+
+loadRanks(){
+  this.lookupService.getLookups('RANKS').subscribe(res => {
+    this.ranks = res;
+  });
+}
+
+loadCountries(){
+  this.lookupService.getLookups('COUNTRIES').subscribe(res => {
+    this.countries = res;
+  });
+}
+
+  employmentForm!: FormGroup;
+  personalForm!: FormGroup;
+  educationForm!: FormGroup;
   
   step: number = 1;
 
   // STEP 1 - Personal Info
-  personal = {
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    countryId: '',
-    region: '',
-    district: '',
-    address: '',
-    email: '',
-    nida: '',
-    DOB: '',
-    maritalStatus: '',
-    bloodGroup: '',
-    diasbility: ''
-  };
+  // personal = {
+  //   firstName: '',
+  //   middleName: '',
+  //   lastName: '',
+  //   countryId: '',
+  //   region: '',
+  //   district: '',
+  //   address: '',
+  //   email: '',
+  //   nida: '',
+  //   DOB: '',
+  //   maritalStatus: '',
+  //   bloodGroup: '',
+  //   diasbility: ''
+  // };
 
   // STEP 2 - Education
   education = {
@@ -112,7 +199,18 @@ constructor(
   //   HiredDate: ''
   // };
 
-  countries: any[] = []; // ✅ make sure this exists
+//   countries: any[] = []; 
+// regions: Region[] = [];
+// selectedRegionId: number | null = null;
+
+// loadRegions(): void {
+//   this.lookupService.getRegions().pipe(first()).subscribe({
+//     next: (res: Region[]) => {
+//       this.regions = res;
+//     },
+//     error: (err) => console.error(err)
+//   });
+// }
 
   nextStep() {
     if (this.step < 3) this.step++;
@@ -130,6 +228,30 @@ constructor(
       },
       error => {
         console.error('Error creating staff:', error);
+        // Optionally, show an error message to the user
+      }
+    );
+  }
+
+  public createPersonalInfo(data: any): void {
+    this.registerService.createPersonalInfo(data).subscribe(
+      response => {
+        console.log('Personal info created successfully:', response);
+      },
+      error => {
+        console.error('Error creating personal info:', error);
+        // Optionally, show an error message to the user
+      }
+    );
+  }
+
+   public createEducationInfo(data: any): void {
+    this.registerService.createEducationInfo(data).subscribe(
+      response => {
+        console.log('Personal info created successfully:', response);
+      },
+      error => {
+        console.error('Error creating personal info:', error);
         // Optionally, show an error message to the user
       }
     );

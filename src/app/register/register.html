@@ -36,8 +36,10 @@
   <div class="form-card">
 
    @if (step === 1) {
-<div class="form-step">
+<!-- <div class="form-step"> -->
 
+  
+   <form class="form-step" #p="ngForm" (ngSubmit)="createPersonalInfo(p.value)">
   <div class="step-header">
     <div>
       <h2 class="step-title">Personal Information</h2>
@@ -45,121 +47,163 @@
     </div>
   </div>
 
+
   <div class="form-grid">
+   
 
     <div class="form-group">
-      <label>First Name</label>
+      <label for="firstName">First Name</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. John" [(ngModel)]="personal.firstName"
-        required>
+           <input type="text" id="firstName" name="firstName" ngModel>
       </div>
     </div>
 
         <div class="form-group">
-      <label>Middle Name</label>
+      <label for="middleName">Middle Name</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. Gerald" [(ngModel)]="personal.middleName">
+        <!-- <input type="text" placeholder="e.g. Gerald" [(ngModel)]="personal.middleName"> -->
+            <input type="text" id="middleName" name="middleName" ngModel>
       </div>
     </div>
     
 
        <div class="form-group">
-      <label>Last Name</label>
+      <label for="lastName">Last Name</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. Doe" [(ngModel)]="personal.lastName">
+        <!-- <input type="text" placeholder="e.g. Doe" [(ngModel)]="personal.lastName"> -->
+               <input type="text" id="lastName" name="lastName" ngModel>
       </div>
     </div>
     
-        <div class="form-group">
-      <label>Country ID</label>
-      <div class="input-wrap">
-        <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. Tanzania" [(ngModel)]="personal.countryId">
-      </div>
-    </div>
+           <div class="form-group">
+  <label for="countries">Country Of Birth</label>
+  <div class="input-wrap">  
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="countries" name="countriesId" >
+      <option value="">-- Select Country --</option>
+      <option *ngFor="let country of countries" [value]="country.country_id">
+        {{ country.country_id  }}
+      </option>
+    </select>
+
+  </div>
+</div>
 
     
-        <div class="form-group">
-      <label>Region Of Birth</label>
-      <div class="input-wrap">
-        <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. Region" [(ngModel)]="personal.region">
-      </div>
-      </div>
+     <div class="form-group">
+  <label for="region">Region Of Birth</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="region" name="regionId" >
+      <option value="">-- Select Region --</option>
+      <option *ngFor="let region of regions" [value]="region.region_id">
+        {{ region.region_id }}
+      </option>
+    </select>
+
+  </div>
+</div>
 
       
         <div class="form-group">
-      <label>District Of Birth</label>
+  <label for="district">District Of Birth</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="district" name="districtId" >
+      <option value="">-- Select District --</option>
+      <option *ngFor="let district of districts" [value]="district.district_id">
+        {{ district.district_id  }}
+      </option>
+    </select>
+
+  </div>
+</div>
+
+
+       <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. District" [(ngModel)]="personal.district">
+        <!-- <input type="text" placeholder="e.g. District" [(ngModel)]="personal.district"> -->
+        <input type="number" id="phoneNumber" name="phoneNumber" ngModel>
       </div>
     </div>
 
       <div class="form-group">
-      <label>Address (Ward)</label>
+      <label for="address">Address (Ward)</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. Address" [(ngModel)]="personal.address">
+        <!-- <input type="text" placeholder="e.g. Address" [(ngModel)]="personal.address"> -->
+        <input type="text" id="address" name="address" ngModel>
       </div>
     </div>
    
 
      <div class="form-group">
-      <label>NIDA</label>
+      <label for="nida">NIDA</label>
       <div class="input-wrap">
         <i class="bi bi-envelope"></i>
-        <input type="text" placeholder="e.g. NIDA" [(ngModel)]="personal.nida">
+        <!-- <input type="text" placeholder="e.g. NIDA" [(ngModel)]="personal.nida"> -->
+        <input type="text" id="nida" name="nationalId" ngModel>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Date of Birth</label>
+      <label for="maritalStatus">Marital Status</label>
       <div class="input-wrap">
         <i class="bi bi-envelope"></i>
-        <input type="date" placeholder="Date of Birth" [(ngModel)]="personal.DOB">
+        <!-- <input type="text" placeholder="e.g. marital status" [(ngModel)]="personal.maritalStatus"> -->
+        <input type="text" id="maritalStatus" name="maritalStatus" ngModel>
       </div>
     </div>
 
-   <div class="form-group">
-  <label>Marital Status</label>
-
+             <div class="form-group">
+  <label for="district">Gender</label>
   <div class="input-wrap">
-    <i class="bi bi-telephone"></i>
+    <i class="bi bi-geo-alt"></i>
 
-    <input
-      type="text"
-      placeholder="maritalStatus"
-      [(ngModel)]="personal.maritalStatus"
-      list="maritalOptions"
-    >
-
-    <datalist id="maritalOptions">
-      <option value="SINGLE"></option>
-      <option value="MARRIED"></option>
-      <option value="DIVORCED"></option>
-      <option value="WIDOWED"></option>
-    </datalist>
+    <select id="district" name="districtId" >
+      <option value="">-- Select Gender --</option>
+      <option *ngFor="let gender of genders" [value]="gender.gender_id">
+        {{ gender.gender_id  }}
+      </option>
+    </select>
 
   </div>
 </div>
 
     <div class="form-group">
-      <label>Blood Group</label>
+      <label for="DOB">Date of Birth</label>
+      <div class="input-wrap">
+        <i class="bi bi-envelope"></i>
+        <!-- <input type="date" placeholder="Date of Birth" [(ngModel)]="personal.DOB"> -->
+        <input type="date" id="DOB" name="dateOfBirth" ngModel>
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="bloodGroup">Blood Group</label>
       <div class="input-wrap">
         <i class="bi bi-telephone"></i>
-        <input type="text" placeholder="bloodGroup" [(ngModel)]="personal.bloodGroup">
+        <!-- <input type="text" placeholder="bloodGroup" [(ngModel)]="personal.bloodGroup"> -->
+        <input type="number" id="bloodGroup" name="bloodGroupId" ngModel>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Diabilty</label>
+      <label for="disability">Disability</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. District" [(ngModel)]="personal.diasbility">
+        <!-- <input type="text" placeholder="e.g. District" [(ngModel)]="personal.disability"> -->
+            <input type="text" id="disability" name="disability" ngModel>
       </div>
     </div>
     </div> 
@@ -169,16 +213,24 @@
 
   <div class="form-actions">
     <span></span>
-    <button type="button" class="btn-primary" (click)="nextStep()">
+    <!-- <button type="submit" class="btn-primary" (click)="nextStep()">
+
+      Next Step <i class="bi bi-arrow-right"></i>
+    </button> -->
+      <button type="submit" class="btn-primary" (click)="nextStep()" (click)="createPersonalInfo(p)">
+
       Next Step <i class="bi bi-arrow-right"></i>
     </button>
   </div>
+  </form>
+  
 
-</div>
+<!-- </div> -->
 }
 
     <!-- STEP 2: Education -->
     @if (step === 2) {
+        <form class="form-step" #j="ngForm" (ngSubmit)="createEducationInfo(j.value)">
     <div class="form-step">
       <div class="step-header">
         <div>
@@ -188,79 +240,72 @@
       </div>
 
       <div class="form-grid">
+
+
       <div class="form-group">
-  <label>Education Level</label>
+      <label for="Educationlevel">Education Level</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="Educationlevel" name="educationLevel" ngModel>
+      </div>
+    </div>
 
-  <div class="input-wrap">
-    <i class="bi bi-award"></i>
-
-    <input
-      type="text"
-      placeholder="e.g. Bachelor's Degree"
-      [(ngModel)]="education.level"
-      list="educationOptions"
-    >
-
-    <datalist id="educationOptions">
-      <option value="Bachelor Degree"></option>
-      <option value="Diploma"></option>
-      <option value="Form Six"></option>
-      <option value="Certificate"></option>
-      <option value="Form Four"></option>
-    </datalist>
-
-  </div>
-</div>
-
-        
-
-        <div class="form-group">
-          <label>Institution Name</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. University of Dar es Salaam" [(ngModel)]="education.institutionName">
-          </div>
-        </div>
+         <div class="form-group">
+      <label for="institutionName">Institution Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="institutionName" name="institutionName" ngModel>
+      </div>
+    </div>
        
-        <div class="form-group">
-          <label>Start Year</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g.2020" [(ngModel)]="education.startYear">
-          </div>
-        </div>
-
          <div class="form-group">
-          <label>Year of Completion</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g.2020" [(ngModel)]="education.year">
-          </div>
-        </div>
-
-         <div class="form-group">
-          <label>Grade</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g.A" [(ngModel)]="education.grade">
-          </div>
-        </div>
-
-         <div class="form-group">
-          <label>Certificate Number</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. CERT123456" [(ngModel)]="education.certificateNumber">
-          </div>
-        </div>
+      <label for="startYear">Start Year</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="startYear" name="startYear" ngModel>
+      </div>
+    </div>
 
           <div class="form-group">
-          <label>Professional</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g.ICT" [(ngModel)]="education.professional">
-          </div>
-        </div>
+      <label for="yearOfCompletion">Year of Completion</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="yearOfCompletion" name="completionYear" ngModel>
+      </div>
+    </div>
+
+          <div class="form-group">
+      <label for="grade">Grade</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="grade" name="grade" ngModel>
+      </div>
+    </div>
+
+          <div class="form-group">
+      <label for="certificateNumber">Certificate Number</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="certificateNumber" name="certificateNumber" ngModel>
+      </div>
+    </div>
+
+    
+          <div class="form-group">
+      <label for="courseName">Course Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="courseName" name="courseName" ngModel>
+      </div>
+    </div>
+
+          <div class="form-group">
+      <label for="professional">Professional</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="professional" name="proffesional" ngModel>
+      </div>
+    </div>
 
       </div>
 
@@ -275,252 +320,251 @@
         </button>
       </div>
     </div>
+    </form>
     }
 
     <!-- STEP 3: Employment -->
 
      @if (step === 3) {
-
-<!-- <form class="form-step"  [formGroup]="employmentForm" (ngSubmit)="submit()">
+       <form class="form-step" #f="ngForm" (ngSubmit)="createStaff(f.value)">
       <div class="step-header">
         <div>
           <h2 class="step-title">Employment Details</h2>
           <p class="step-desc">Work history and current position</p>
         </div>
       </div>
+
+        <div class="form-grid">
+
      
-       <div class="form-grid">
-        <div class="form-group">
-      <label>First Name</label>
+       <div class="form-group">
+      <label for="email">Email</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. John" formControlName="firstName"
-        required>
+           <input type="text" id="email" name="email" ngModel>
       </div>
     </div>
 
         <div class="form-group">
-      <label>Middle Name</label>
+      <label for="chequeNumber">Cheque Number</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. Gerald" formControlName="middleName">
+           <input type="text" id="chequeNumber" name="chequeNumber" ngModel>
       </div>
     </div>
     
 
        <div class="form-group">
-      <label>Last Name</label>
+      <label for="PfNumber">Pf Number</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. Doe" formControlName="lastName">
+           <input type="text" id="PfNumber" name="pfNumber" ngModel>
       </div>
     </div>
 
      <div class="form-group">
-      <label>Email</label>
+  <label for="region">Ranks</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="region" name="regionId" >
+      <option value="">-- Select Rank --</option>
+      <option *ngFor="let rank of ranks" [value]="rank.rank_id">
+        {{ rank.rank_id }}
+      </option>
+    </select>
+
+  </div>
+</div>
+
+  
+       <div class="form-group">
+      <label for="employment-date">Employment Date</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-        <input type="text" placeholder="e.g. doe@example.com" formControlName="email">
+           <input type="date" id="employment-date" name="employmentDate" ngModel>
       </div>
     </div>
 
-  
-        <div class="form-group">
-          <label>Cheque Number</label>
-          <div class="input-wrap">
-            <i class="bi bi-award"></i>
-            <input type="text" placeholder="e.g. CH123456" formControlName="chequeNumber">
-          </div>
-        </div>
-
         
 
-        <div class="form-group">
-          <label>PF Number</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. PF123456" formControlName="pfNumber">
-          </div>
-        </div>
+      <div class="form-group">
+      <label for="promotion-date">Promotion Date</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="date" id="promotion-date" name="promotionDate" ngModel>
+      </div>
+    </div>
        
          <div class="form-group">
-          <label>Rank</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. CONST" formControlName="rankId">
-          </div>
-        </div>
+  <label for="region">Salary Scale</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="region" name="regionId" >
+      <option value="">-- Select Salary Scale --</option>
+      <option *ngFor="let scale of salaryScales" [value]="scale.scale_id">
+        {{ scale.salary_id }}
+      </option>
+    </select>
+
+  </div>
+</div>
+
 
           <div class="form-group">
-          <label>Employment Date</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="date" placeholder="e.g. 2020-01-01" formControlName="employmentDate">
-          </div>
-        </div>
-
-         <div class="form-group">
-          <label>Confirmation Date</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="date" placeholder="e.g. 2020-01-01" formControlName="confirmationDate">
-          </div>
-        </div>
-
-         <div class="form-group">
-          <label>Confirmation Date 2</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="date" placeholder="e.g. 2020-01-01" formControlName="confirmationDate2">
-          </div>
-        </div>
-
-         <div class="form-group">
-          <label>Promotion Date</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="date" placeholder="e.g. 2020-01-01" formControlName="promotionDate">
-          </div>
-        </div>
+      <label for="status">Employment Status</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="number" id="status" name="statusId" ngModel>
+      </div>
+    </div>
 
           <div class="form-group">
-          <label>Salary Scale</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. 1,000,000" formControlName="scaleId">
-          </div>
-        </div>
+  <label for="region">Region</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="region" name="regionId" >
+      <option value="">-- Select Region --</option>
+      <option *ngFor="let region of regions" [value]="region.region_id">
+        {{ region.region_id  }}
+      </option>
+    </select>
+
+  </div>
+</div>
+
+
+            <div class="form-group">
+  <label for="region">District</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="district" name="districtId" >
+      <option value="">-- Select District --</option>
+      <option *ngFor="let district of districts" [value]="district.district_id">
+        {{ district.district_id }}
+      </option>
+    </select>
+
+  </div>
+</div>
+
+
+  <div class="form-group">
+  <label for="station">Station</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
+
+    <select id="station" name="stationId" >
+      <option value="">-- Select Station --</option>
+      <option *ngFor="let station of stations" [value]="station.station_id">
+        {{ station.station_id  }}
+      </option>
+    </select>
+
+  </div>
+</div>
+
+
+       <div class="form-group">
+      <label for="department">Department</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="number" id="department" name="departmentId" ngModel>
+      </div>
+    </div>
 
          <div class="form-group">
-          <label>Employment Status</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. Active" formControlName="statusId">
-          </div>
-        </div>
+  <label for="position">Position</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
 
-          <div class="form-group">
-          <label>Region</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. region" formControlName="regionId">
-          </div>
-        </div>
+    <select id="position" name="positionId" >
+      <option value="">-- Select Position --</option>
+      <option *ngFor="let position of positions" [value]="position.position_id">
+        {{ position.position_id  }}
+      </option>
+    </select>
 
-        <div class="form-group">
-          <label>District</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. district" formControlName="districtId">
-          </div>
-        </div>
-      
-         <div class="form-group">
-          <label>Station</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. station" formControlName="stationId">
-          </div>
-        </div>
-      
-          <div class="form-group">
-          <label>Department</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. department" formControlName="departmentId">
-          </div>
-        </div>
+  </div>
+</div>
 
-          <div class="form-group">
-          <label>Position</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. Position" formControlName="positionId">
-          </div>
-        </div>
-      
-        <div class="form-group">
-          <label>Designation</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. Designation" formControlName="designationId">
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label>Step</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. Step" formControlName="stepId">
-          </div>
-        </div>
-        
+       <div class="form-group">
+      <label for="designation">Designation</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="number" id="designation" name="designationId" ngModel>
+      </div>
+    </div>
+   <div class="form-group">
+  <label for="salary-step">Salary Step</label>
+  <div class="input-wrap">
+    <i class="bi bi-geo-alt"></i>
 
-         <div class="form-group">
-          <label>Employment Type</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. Permanent" formControlName="employmentType">
-          </div>
-        </div>
-      
-          <div class="form-group">
-          <label>Account Number</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. 123456789" formControlName="accountNumber">
-          </div>
-        </div>
+    <select id="salary-step" name="stepId" >
+      <option value="">-- Select Salary_Step --</option>
+      <option *ngFor="let step of salarySteps" [value]="step.step_id">
+        {{ step.step_id }}
+      </option>
+    </select>
+
+  </div>
+</div>
+
       
         <div class="form-group">
-          <label>Bank Name</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. NMB" formControlName="bankName">
-          </div>
-        </div>
+      <label for="employment-type">Employment Type</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="employment-type" name="employmentType" ngModel>
+      </div>
+    </div>
       
          <div class="form-group">
-          <label>Emergency Contact</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="text" placeholder="e.g. NMB" formControlName="emergencyContact">
-          </div>
-        </div>
+      <label for="accountNo">Account Number</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="accountNo" name="accountNumber" ngModel>
+      </div>
+    </div>
 
-         <div class="form-group">
-          <label>Hired Date</label>
-          <div class="input-wrap">
-            <i class="bi bi-building"></i>
-            <input type="date" placeholder="e.g. NMB" formControlName="hiredDate">
-          </div>
-        </div>
-
+          <div class="form-group">
+      <label for="bank">Bank Name</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="bank" name="bankName" ngModel>
+      </div>
+    </div>
+      
+        <div class="form-group">
+      <label for="emergency">Emergency Contact</label>
+      <div class="input-wrap">
+        <i class="bi bi-person"></i>
+           <input type="text" id="emergency" name="emergencyContact" ngModel>
+      </div>
+    </div>
 
       </div>
-
-      
 
     
       <div class="form-actions">
         <button type="button" class="btn-secondary" (click)="prevStep()">
           <i class="bi bi-arrow-left"></i> Back
         </button>
-        <button type="button" class="btn-success" (click)="submit()">
+        <button type="submit" class="btn-success">
           <i class="bi bi-check-circle"></i> Submit Registration
         </button>
       </div>
-  </form> -->
+  </form>
 
 
 
+<!-- 
 
-
-
-
-
-
-      <form class="form-step" #f="ngForm" (ngSubmit)="createStaff(f.value)">
+       <form class="form-step" #f="ngForm" (ngSubmit)="createStaff(f.value)">
 
   <div class="step-header">
     <div>
@@ -530,24 +574,6 @@
   </div>
 
   <div class="form-grid">
-
-<!--     
-    <div class="form-group">
-      <label for="FirstName">First Name</label>
-      <input type="text" id="FirstName" name="firstName" ngModel required>
-    </div> -->
-
-    
-    <!-- <div class="form-group">
-      <label for="MiddleName">Middle Name</label>
-      <input type="text" id="MiddleName" name="middleName" ngModel required>
-    </div>
-
-    
-    <div class="form-group">
-      <label for="LastName">Last Name</label>
-      <input type="text" id="LastName" name="lastName" ngModel required>
-    </div> -->
 
     
     <div class="form-group">
@@ -582,11 +608,6 @@
     <div class="form-group">
       <label for="ConfirmationDate">Confirmation Date</label>
       <input type="date" id="ConfirmationDate" name="confirmationDate" ngModel>
-    </div>
-
-     <div class="form-group">
-      <label for="ConfirmationDate">Confirmation Date 2</label>
-      <input type="date" id="ConfirmationDate" name="confirmationDate2" ngModel>
     </div>
 
     <div class="form-group">
@@ -690,7 +711,11 @@
     </button>
   </div>
 
-</form> 
+</form>   -->
+
+
+
+
      }
      
 

@@ -23,15 +23,15 @@
 
         <!-- USERNAME -->
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username" 
-          aria-label="Username"
+          <mat-label>Cheque Number</mat-label>
+          <input matInput formControlName="checknumber" 
+          aria-label="checknumber"
 
           />
           
 
-          @if (loginForm.get("username")?.hasError("required")) {
-            <mat-error>Username is required</mat-error>
+          @if (loginForm.get("checknumber")?.hasError("required")) {
+            <mat-error>Cheque Number is required</mat-error>
           }
         </mat-form-field>
 

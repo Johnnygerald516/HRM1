@@ -18,6 +18,13 @@ export class RegisterService {
     return this.http.post(`${this.baseUrl}/api/employees/register`, data);
   }
 
+    public createPersonalInfo(data: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/api/personal-info/register`, data);
+  }
+  
+    public createEducationInfo(data: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/api/employees/register`, data);
+  }
 //   Get all staff
   public getAllStaff(): Observable<any>{
     return this.http.get(`${this.baseUrl}/api/employees/getAll`);

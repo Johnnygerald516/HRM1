@@ -1,0 +1,137 @@
+<!-- <div class="register-wrapper"> -->
+
+  <!-- HEADER -->
+  <!-- <div class="page-header">
+    <h1>Update Staff Details</h1>
+    <p>Select staff and update step by step</p>
+  </div> -->
+
+  <!-- ===================== TABLE ===================== -->
+  <!-- <div class="table-card">
+    <h1>Staff List</h1>
+
+    <input
+      type="text"
+      placeholder="Search by Cheque Number..."
+      [(ngModel)]="searchText"
+      (input)="filterStaff()"
+    />
+
+    <table class="staff-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Rank</th>
+          <th>PF Number</th>
+          <th>Cheque</th>
+          <th>Station</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let s of filteredStaff">
+          <td>{{ s.firstName }} {{ s.lastName }}</td>
+          <td>{{ s.rank }}</td>
+          <td>{{ s.pfNumber }}</td>
+          <td>{{ s.chequeNumber }}</td>
+          <td>{{ s.station }}</td>
+          <td>{{ s.status }}</td>
+          <td>
+            <button (click)="selectStaff(s)">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+  <!-- ===================== MODAL ===================== -->
+  <!-- @if (showForm) { -->
+
+  <!-- <div class="modal-backdrop">
+
+    <div class="modal-container"> -->
+
+      <!-- HEADER -->
+      <!-- <div class="modal-header">
+        <h1>Update Staff</h1>
+        <button class="close-btn" (click)="closeModal()">✖</button>
+      </div> -->
+
+      <!-- STEPPER -->
+      <!-- <div class="stepper">
+
+        <div class="step-item" [class.active]="step === 1">1 Personal</div>
+        <div class="step-item" [class.active]="step === 2">2 Education</div>
+        <div class="step-item" [class.active]="step === 3">3 Employment</div>
+
+      </div> -->
+
+      <!-- FORM -->
+      <!-- <div class="form-card"> -->
+
+        <!-- STEP 1 -->
+        <!-- @if (step === 1) {
+        <form (ngSubmit)="updatePersonal()">
+
+          <input name="firstName" [(ngModel)]="personal.firstName" placeholder="First Name">
+          <input name="middleName" [(ngModel)]="personal.middleName" placeholder="Middle Name">
+          <input name="lastName" [(ngModel)]="personal.lastName" placeholder="Last Name">
+
+          <select name="regionId" [(ngModel)]="personal.regionId"
+                  (change)="onRegionChange(personal.regionId)">
+            <option *ngFor="let r of regions" [value]="r.id">{{ r.name }}</option>
+          </select>
+
+          <select name="districtId" [(ngModel)]="personal.districtId"
+                  (change)="onDistrictChange(personal.districtId)">
+            <option *ngFor="let d of districts" [value]="d.id">{{ d.name }}</option>
+          </select>
+
+          <button type="submit">Next</button>
+        </form>
+        } -->
+
+        <!-- STEP 2 -->
+        <!-- @if (step === 2) {
+        <form (ngSubmit)="updateEducation()">
+
+          <input name="level" [(ngModel)]="education.level" placeholder="Level">
+          <input name="institutionName" [(ngModel)]="education.institutionName" placeholder="Institution">
+          <input name="startYear" [(ngModel)]="education.startYear" placeholder="Start Year">
+          <input name="yearOfCompletion" [(ngModel)]="education.yearOfCompletion" placeholder="Completion Year">
+
+          <button type="button" (click)="prevStep()">Back</button>
+          <button type="submit">Next</button>
+        </form>
+        } -->
+
+        <!-- STEP 3 -->
+        <!-- @if (step === 3) {
+        <form (ngSubmit)="updateEmployment()">
+
+          <input name="email" [(ngModel)]="employment.email" placeholder="Email">
+          <input name="chequeNumber" [(ngModel)]="employment.chequeNumber" placeholder="Cheque Number">
+          <input name="pfNumber" [(ngModel)]="employment.pfNumber" placeholder="PF Number">
+          <input name="rankId" [(ngModel)]="employment.rankId" placeholder="Rank">
+          <input type="date" name="employmentDate" [(ngModel)]="employment.employmentDate">
+
+          <select name="regionId" [(ngModel)]="employment.regionId">
+            <option *ngFor="let r of regions" [value]="r.id">{{ r.name }}</option>
+          </select>
+
+          <button type="button" (click)="prevStep()">Back</button>
+          <button type="submit">Update Staff</button>
+        </form>
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+
+  }
+
+</div>-->

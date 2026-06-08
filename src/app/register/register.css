@@ -138,10 +138,9 @@
 
 /* ── FORM GRID (3 COLUMN RESPONSIVE) ── */
 .form-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
   gap: 20px;
-  margin-bottom: 32px;
 }
 
 /* Tablet */
