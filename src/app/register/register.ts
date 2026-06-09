@@ -252,10 +252,11 @@ loadCountries(){
     this.registerService.createPersonalInfo(data).subscribe(
       response => {
         if (response?.AckCode === 1) {
-          this.employeeId = this.extractEmployeeId(response);
           this.errorMessage = '';
-          console.log('Personal info created successfully. Employee ID:', this.employeeId, response);
-          this.nextStep();
+          console.log('Personal info created successfully:', response);
+          // The personal-info response does not include the new employee ID,
+          // so resolve it from the staff list by matching the NIDA we just saved.
+          this.resolveEmployeeIdByNida(data);
         } else {
           this.errorMessage = response?.AckMessage ?? 'Failed to save personal info';
           console.error('Failed to save personal info:', response);
@@ -264,6 +265,39 @@ loadCountries(){
       error => {
         console.error('Error creating personal info:', error);
         // Optionally, show an error message to the user
+      }
+    );
+  }
+
+  private normalizeValue(value: any): string {
+    return value == null ? '' : String(value).trim();
+  }
+
+  private resolveEmployeeIdByNida(personalData: any): void {
+    const nida = this.normalizeValue(personalData?.nationalId ?? personalData?.nida);
+    this.registerService.getAllStaff().subscribe(
+      list => {
+        const employees: any[] = Array.isArray(list) ? list : (list?.data ?? []);
+        const match = nida
+          ? employees.find(
+              emp =>
+                this.normalizeValue(
+                  emp?.nationalId ?? emp?.national_id ?? emp?.nida ?? emp?.Nida
+                ) === nida
+            )
+          : null;
+        this.employeeId = match ? this.extractEmployeeId(match) : null;
+        console.log('Resolved employee ID by NIDA:', this.employeeId, match);
+        if (this.employeeId == null) {
+          this.errorMessage =
+            'Personal info saved, but could not resolve the employee ID from the staff list.';
+        }
+        this.nextStep();
+      },
+      error => {
+        console.error('Error resolving employee ID from staff list:', error);
+        this.errorMessage = 'Personal info saved, but failed to load the staff list to get the employee ID.';
+        this.nextStep();
       }
     );
   }
