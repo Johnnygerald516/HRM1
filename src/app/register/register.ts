@@ -225,8 +225,14 @@ loadCountries(){
     const payload = { ...data, employeeId: this.employeeId };
     this.registerService.createStaff(payload).subscribe(
       response => {
-        console.log('Staff created successfully:', response);
-        this.router.navigateByUrl("/dashboard");
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          console.log('Staff created successfully:', response);
+          this.router.navigateByUrl("/dashboard");
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to create staff';
+          console.error('Failed to create staff:', response);
+        }
       },
       error => {
         console.error('Error creating staff:', error);
@@ -245,9 +251,15 @@ loadCountries(){
   public createPersonalInfo(data: any): void {
     this.registerService.createPersonalInfo(data).subscribe(
       response => {
-        this.employeeId = this.extractEmployeeId(response);
-        console.log('Personal info created successfully. Employee ID:', this.employeeId, response);
-        this.nextStep();
+        if (response?.AckCode === 1) {
+          this.employeeId = this.extractEmployeeId(response);
+          this.errorMessage = '';
+          console.log('Personal info created successfully. Employee ID:', this.employeeId, response);
+          this.nextStep();
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save personal info';
+          console.error('Failed to save personal info:', response);
+        }
       },
       error => {
         console.error('Error creating personal info:', error);
@@ -260,8 +272,14 @@ loadCountries(){
     const payload = { ...data, employeeId: this.employeeId };
     this.registerService.createEducationInfo(payload).subscribe(
       response => {
-        console.log('Education info created successfully:', response);
-        this.nextStep();
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          console.log('Education info created successfully:', response);
+          this.nextStep();
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save education info';
+          console.error('Failed to save education info:', response);
+        }
       },
       error => {
         console.error('Error creating education info:', error);
