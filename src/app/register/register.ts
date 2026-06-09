@@ -27,6 +27,7 @@ export class Register implements OnInit {
   roles: any[] = [];  
   countries: any[] = [];
   errorMessage: any;
+  employeeId: number | null = null;
 
 constructor(
   private registerService: RegisterService,
@@ -221,10 +222,17 @@ loadCountries(){
   }
 
     public createStaff(data: any): void {
-    this.registerService.createStaff(data).subscribe(
+    const payload = { ...data, employeeId: this.employeeId };
+    this.registerService.createStaff(payload).subscribe(
       response => {
-        console.log('Staff created successfully:', response);
-        this.router.navigateByUrl("/dashboard");
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          console.log('Staff created successfully:', response);
+          this.router.navigateByUrl("/dashboard");
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to create staff';
+          console.error('Failed to create staff:', response);
+        }
       },
       error => {
         console.error('Error creating staff:', error);
@@ -233,10 +241,26 @@ loadCountries(){
     );
   }
 
+  private extractEmployeeId(response: any): number | null {
+    if (response == null) return null;
+    const source = response.data ?? response;
+    const id = source.employeeId ?? source.employee_id ?? source.id ?? null;
+    return id != null ? Number(id) : null;
+  }
+
   public createPersonalInfo(data: any): void {
     this.registerService.createPersonalInfo(data).subscribe(
       response => {
-        console.log('Personal info created successfully:', response);
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          console.log('Personal info created successfully:', response);
+          // The personal-info response does not include the new employee ID,
+          // so resolve it from the staff list by matching the NIDA we just saved.
+          this.resolveEmployeeIdByNida(data);
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save personal info';
+          console.error('Failed to save personal info:', response);
+        }
       },
       error => {
         console.error('Error creating personal info:', error);
@@ -245,13 +269,54 @@ loadCountries(){
     );
   }
 
-   public createEducationInfo(data: any): void {
-    this.registerService.createEducationInfo(data).subscribe(
-      response => {
-        console.log('Personal info created successfully:', response);
+  private normalizeValue(value: any): string {
+    return value == null ? '' : String(value).trim();
+  }
+
+  private resolveEmployeeIdByNida(personalData: any): void {
+    const nida = this.normalizeValue(personalData?.nationalId ?? personalData?.nida);
+    this.registerService.getAllStaff().subscribe(
+      list => {
+        const employees: any[] = Array.isArray(list) ? list : (list?.data ?? []);
+        const match = nida
+          ? employees.find(
+              emp =>
+                this.normalizeValue(
+                  emp?.nationalId ?? emp?.national_id ?? emp?.nida ?? emp?.Nida
+                ) === nida
+            )
+          : null;
+        this.employeeId = match ? this.extractEmployeeId(match) : null;
+        console.log('Resolved employee ID by NIDA:', this.employeeId, match);
+        if (this.employeeId == null) {
+          this.errorMessage =
+            'Personal info saved, but could not resolve the employee ID from the staff list.';
+        }
+        this.nextStep();
       },
       error => {
-        console.error('Error creating personal info:', error);
+        console.error('Error resolving employee ID from staff list:', error);
+        this.errorMessage = 'Personal info saved, but failed to load the staff list to get the employee ID.';
+        this.nextStep();
+      }
+    );
+  }
+
+   public createEducationInfo(data: any): void {
+    const payload = { ...data, employeeId: this.employeeId };
+    this.registerService.createEducationInfo(payload).subscribe(
+      response => {
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          console.log('Education info created successfully:', response);
+          this.nextStep();
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save education info';
+          console.error('Failed to save education info:', response);
+        }
+      },
+      error => {
+        console.error('Error creating education info:', error);
         // Optionally, show an error message to the user
       }
     );
