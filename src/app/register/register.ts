@@ -27,6 +27,7 @@ export class Register implements OnInit {
   roles: any[] = [];  
   countries: any[] = [];
   errorMessage: any;
+  employeeId: number | null = null;
 
 constructor(
   private registerService: RegisterService,
@@ -221,7 +222,8 @@ loadCountries(){
   }
 
     public createStaff(data: any): void {
-    this.registerService.createStaff(data).subscribe(
+    const payload = { ...data, employeeId: this.employeeId };
+    this.registerService.createStaff(payload).subscribe(
       response => {
         console.log('Staff created successfully:', response);
         this.router.navigateByUrl("/dashboard");
@@ -233,10 +235,19 @@ loadCountries(){
     );
   }
 
+  private extractEmployeeId(response: any): number | null {
+    if (response == null) return null;
+    const source = response.data ?? response;
+    const id = source.employeeId ?? source.employee_id ?? source.id ?? null;
+    return id != null ? Number(id) : null;
+  }
+
   public createPersonalInfo(data: any): void {
     this.registerService.createPersonalInfo(data).subscribe(
       response => {
-        console.log('Personal info created successfully:', response);
+        this.employeeId = this.extractEmployeeId(response);
+        console.log('Personal info created successfully. Employee ID:', this.employeeId, response);
+        this.nextStep();
       },
       error => {
         console.error('Error creating personal info:', error);
@@ -246,12 +257,14 @@ loadCountries(){
   }
 
    public createEducationInfo(data: any): void {
-    this.registerService.createEducationInfo(data).subscribe(
+    const payload = { ...data, employeeId: this.employeeId };
+    this.registerService.createEducationInfo(payload).subscribe(
       response => {
-        console.log('Personal info created successfully:', response);
+        console.log('Education info created successfully:', response);
+        this.nextStep();
       },
       error => {
-        console.error('Error creating personal info:', error);
+        console.error('Error creating education info:', error);
         // Optionally, show an error message to the user
       }
     );
