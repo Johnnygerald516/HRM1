@@ -26,7 +26,13 @@ export class Register implements OnInit {
   positions: any[] = [];
   roles: any[] = [];  
   countries: any[] = [];
+  maritalStatuses: any[] = [];
+  bloodGroups: any[] = [];
+  educationLevels: any[] = [];
   errorMessage: any;
+
+  // Captured from the personal-info response so it can be sent with education.
+  personalInfoId: number | null = null;
 
 constructor(
   private registerService: RegisterService,
@@ -75,6 +81,9 @@ ngOnInit(): void {
   this.loadRoles();
   this.loadSalarySteps();
   this.loadCountries();
+  this.loadMaritalStatuses();
+  this.loadBloodGroups();
+  this.loadEducationLevels();
 }
 
 loadRegions(){
@@ -134,6 +143,24 @@ loadRanks(){
 loadCountries(){
   this.lookupService.getLookups('COUNTRIES').subscribe(res => {
     this.countries = res;
+  });
+}
+
+loadMaritalStatuses(){
+  this.lookupService.getLookups('MARITAL_STATUSES').subscribe(res => {
+    this.maritalStatuses = res;
+  });
+}
+
+loadBloodGroups(){
+  this.lookupService.getLookups('BLOOD_GROUPS').subscribe(res => {
+    this.bloodGroups = res;
+  });
+}
+
+loadEducationLevels(){
+  this.lookupService.getLookups('EDUCATION_LEVELS').subscribe(res => {
+    this.educationLevels = res;
   });
 }
 
@@ -233,26 +260,83 @@ loadCountries(){
     );
   }
 
+  private extractPersonalInfoId(response: any): number | null {
+    const source = response?.data ?? response;
+    const id = source?.personal_info_id ?? source?.personalInfoId ?? source?.id ?? null;
+    return id != null ? Number(id) : null;
+  }
+
+  private storePersonalInfoId(id: number | null): void {
+    this.personalInfoId = id;
+    if (id != null && typeof sessionStorage !== 'undefined') {
+      sessionStorage.setItem('personalInfoId', String(id));
+    }
+  }
+
+  private getStoredPersonalInfoId(): number | null {
+    if (this.personalInfoId != null) return this.personalInfoId;
+    if (typeof sessionStorage !== 'undefined') {
+      const stored = sessionStorage.getItem('personalInfoId');
+      if (stored) return Number(stored);
+    }
+    return null;
+  }
+
   public createPersonalInfo(data: any): void {
     this.registerService.createPersonalInfo(data).subscribe(
       response => {
-        console.log('Personal info created successfully:', response);
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          // Store the DB-generated id so the education step can reference it.
+          this.storePersonalInfoId(this.extractPersonalInfoId(response));
+          console.log('Personal info saved. personal_info_id =', this.personalInfoId);
+          this.nextStep();
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save personal info';
+          console.error('Failed to save personal info:', response);
+        }
       },
       error => {
         console.error('Error creating personal info:', error);
-        // Optionally, show an error message to the user
+        this.errorMessage = 'Server error while saving personal info';
       }
     );
   }
 
    public createEducationInfo(data: any): void {
-    this.registerService.createEducationInfo(data).subscribe(
+    // personal_info_id is captured from the personal-info step and sent here
+    // so the education record links to the correct employee.
+    const personalInfoId = this.getStoredPersonalInfoId();
+    if (personalInfoId == null) {
+      this.errorMessage = 'Please save the personal information step first.';
+      console.error('Cannot save education: personalInfoId is not set.');
+      return;
+    }
+
+    const payload = {
+      personalInfoId: personalInfoId,
+      educationLevelId: data.educationLevelId,
+      institutionName: data.institutionName,
+      courseName: data.courseName,
+      startYear: data.startYear,
+      completionYear: data.completionYear,
+      certificateNumber: data.certificateNumber
+    };
+
+    this.registerService.createEducationInfo(payload).subscribe(
       response => {
-        console.log('Personal info created successfully:', response);
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          console.log('Education info saved successfully:', response);
+          this.nextStep();
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save education info';
+          console.error('Failed to save education info:', response);
+        }
       },
       error => {
-        console.error('Error creating personal info:', error);
-        // Optionally, show an error message to the user
+        console.error('Error creating education info:', error);
+        this.errorMessage = 'Server error while saving education info';
       }
     );
   }

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class LookupService {
   //  private baseUrl = environment.apiUrl;
-  private baseUrl = 'http://192.168.137.222:8080/api/lookups';
+  private baseUrl = 'http://192.168.0.5:8080/api/lookups';
 
   constructor(private http: HttpClient) {}
 

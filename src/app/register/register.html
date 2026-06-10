@@ -158,8 +158,12 @@
       <label for="maritalStatus">Marital Status</label>
       <div class="input-wrap">
         <i class="bi bi-envelope"></i>
-        <!-- <input type="text" placeholder="e.g. marital status" [(ngModel)]="personal.maritalStatus"> -->
-        <input type="text" id="maritalStatus" name="maritalStatus" ngModel>
+        <select id="maritalStatus" name="maritalStatusId" ngModel>
+          <option value="">-- Select Marital Status --</option>
+          <option *ngFor="let m of maritalStatuses" [value]="m.marital_status_id">
+            {{ m.marital_status_name || m.name || m.marital_status_id }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -193,8 +197,12 @@
       <label for="bloodGroup">Blood Group</label>
       <div class="input-wrap">
         <i class="bi bi-telephone"></i>
-        <!-- <input type="text" placeholder="bloodGroup" [(ngModel)]="personal.bloodGroup"> -->
-        <input type="number" id="bloodGroup" name="bloodGroupId" ngModel>
+        <select id="bloodGroup" name="bloodGroupId" ngModel>
+          <option value="">-- Select Blood Group --</option>
+          <option *ngFor="let b of bloodGroups" [value]="b.blood_group_id">
+            {{ b.blood_group_name || b.name || b.blood_group_id }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -217,9 +225,9 @@
 
       Next Step <i class="bi bi-arrow-right"></i>
     </button> -->
-      <button type="submit" class="btn-primary" (click)="nextStep()" (click)="createPersonalInfo(p)">
+      <button type="submit" class="btn-primary">
 
-      Next Step <i class="bi bi-arrow-right"></i>
+      Save &amp; Next <i class="bi bi-arrow-right"></i>
     </button>
   </div>
   </form>
@@ -246,7 +254,12 @@
       <label for="Educationlevel">Education Level</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-           <input type="text" id="Educationlevel" name="educationLevel" ngModel>
+        <select id="Educationlevel" name="educationLevelId" ngModel>
+          <option value="">-- Select Education Level --</option>
+          <option *ngFor="let e of educationLevels" [value]="e.education_level_id">
+            {{ e.education_level_name || e.name || e.education_level_id }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -315,8 +328,8 @@
         <button type="button" class="btn-secondary" (click)="prevStep()">
           <i class="bi bi-arrow-left"></i> Back
         </button>
-        <button type="button" class="btn-primary" (click)="nextStep()">
-          Next Step <i class="bi bi-arrow-right"></i>
+        <button type="submit" class="btn-primary">
+          Save &amp; Next <i class="bi bi-arrow-right"></i>
         </button>
       </div>
     </div>
