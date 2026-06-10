@@ -26,7 +26,13 @@ export class Register implements OnInit {
   positions: any[] = [];
   roles: any[] = [];  
   countries: any[] = [];
+  maritalStatuses: any[] = [];
+  bloodGroups: any[] = [];
+  educationLevels: any[] = [];
   errorMessage: any;
+
+  // Captured from the personal-info response so it can be sent with education.
+  personalInfoId: number | null = null;
 
 constructor(
   private registerService: RegisterService,
@@ -75,6 +81,9 @@ ngOnInit(): void {
   this.loadRoles();
   this.loadSalarySteps();
   this.loadCountries();
+  this.loadMaritalStatuses();
+  this.loadBloodGroups();
+  this.loadEducationLevels();
 }
 
 loadRegions(){
@@ -134,6 +143,24 @@ loadRanks(){
 loadCountries(){
   this.lookupService.getLookups('COUNTRIES').subscribe(res => {
     this.countries = res;
+  });
+}
+
+loadMaritalStatuses(){
+  this.lookupService.getLookups('MARITAL_STATUSES').subscribe(res => {
+    this.maritalStatuses = res;
+  });
+}
+
+loadBloodGroups(){
+  this.lookupService.getLookups('BLOOD_GROUPS').subscribe(res => {
+    this.bloodGroups = res;
+  });
+}
+
+loadEducationLevels(){
+  this.lookupService.getLookups('EDUCATION_LEVELS').subscribe(res => {
+    this.educationLevels = res;
   });
 }
 
@@ -236,21 +263,35 @@ loadCountries(){
   public createPersonalInfo(data: any): void {
     this.registerService.createPersonalInfo(data).subscribe(
       response => {
-        console.log('Personal info created successfully:', response);
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          // Store the DB-generated id so the education step can reference it.
+          this.personalInfoId = response.personal_info_id ?? null;
+          console.log('Personal info saved. personal_info_id =', this.personalInfoId);
+          this.nextStep();
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save personal info';
+          console.error('Failed to save personal info:', response);
+        }
       },
       error => {
         console.error('Error creating personal info:', error);
-        // Optionally, show an error message to the user
+        this.errorMessage = 'Server error while saving personal info';
       }
     );
   }
 
    public createEducationInfo(data: any): void {
-    // The sp_InsertEmployeeEducation stored procedure resolves personal_info_id
-    // internally (latest employee record), so we must NOT send it from here.
-    // Sending it shifted every argument by one slot and caused the
-    // "personal info Id" error. Only forward the fields the backend expects.
+    // personal_info_id is captured from the personal-info step and sent here
+    // so the education record links to the correct employee.
+    if (this.personalInfoId == null) {
+      this.errorMessage = 'Please save the personal information step first.';
+      console.error('Cannot save education: personalInfoId is not set.');
+      return;
+    }
+
     const payload = {
+      personalInfoId: this.personalInfoId,
       educationLevelId: data.educationLevelId,
       institutionName: data.institutionName,
       courseName: data.courseName,
