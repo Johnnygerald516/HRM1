@@ -246,13 +246,33 @@ loadCountries(){
   }
 
    public createEducationInfo(data: any): void {
-    this.registerService.createEducationInfo(data).subscribe(
+    // The sp_InsertEmployeeEducation stored procedure resolves personal_info_id
+    // internally (latest employee record), so we must NOT send it from here.
+    // Sending it shifted every argument by one slot and caused the
+    // "personal info Id" error. Only forward the fields the backend expects.
+    const payload = {
+      educationLevelId: data.educationLevelId,
+      institutionName: data.institutionName,
+      courseName: data.courseName,
+      startYear: data.startYear,
+      completionYear: data.completionYear,
+      certificateNumber: data.certificateNumber
+    };
+
+    this.registerService.createEducationInfo(payload).subscribe(
       response => {
-        console.log('Personal info created successfully:', response);
+        if (response?.AckCode === 1) {
+          this.errorMessage = '';
+          console.log('Education info saved successfully:', response);
+          this.nextStep();
+        } else {
+          this.errorMessage = response?.AckMessage ?? 'Failed to save education info';
+          console.error('Failed to save education info:', response);
+        }
       },
       error => {
-        console.error('Error creating personal info:', error);
-        // Optionally, show an error message to the user
+        console.error('Error creating education info:', error);
+        this.errorMessage = 'Server error while saving education info';
       }
     );
   }

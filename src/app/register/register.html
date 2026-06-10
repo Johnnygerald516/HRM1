@@ -243,10 +243,10 @@
 
 
       <div class="form-group">
-      <label for="Educationlevel">Education Level</label>
+      <label for="Educationlevel">Education Level (ID)</label>
       <div class="input-wrap">
         <i class="bi bi-person"></i>
-           <input type="text" id="Educationlevel" name="educationLevel" ngModel>
+           <input type="number" id="Educationlevel" name="educationLevelId" ngModel>
       </div>
     </div>
 
@@ -315,8 +315,8 @@
         <button type="button" class="btn-secondary" (click)="prevStep()">
           <i class="bi bi-arrow-left"></i> Back
         </button>
-        <button type="button" class="btn-primary" (click)="nextStep()">
-          Next Step <i class="bi bi-arrow-right"></i>
+        <button type="submit" class="btn-primary">
+          Save &amp; Next <i class="bi bi-arrow-right"></i>
         </button>
       </div>
     </div>
