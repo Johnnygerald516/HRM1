@@ -260,13 +260,35 @@ loadEducationLevels(){
     );
   }
 
+  private extractPersonalInfoId(response: any): number | null {
+    const source = response?.data ?? response;
+    const id = source?.personal_info_id ?? source?.personalInfoId ?? source?.id ?? null;
+    return id != null ? Number(id) : null;
+  }
+
+  private storePersonalInfoId(id: number | null): void {
+    this.personalInfoId = id;
+    if (id != null && typeof sessionStorage !== 'undefined') {
+      sessionStorage.setItem('personalInfoId', String(id));
+    }
+  }
+
+  private getStoredPersonalInfoId(): number | null {
+    if (this.personalInfoId != null) return this.personalInfoId;
+    if (typeof sessionStorage !== 'undefined') {
+      const stored = sessionStorage.getItem('personalInfoId');
+      if (stored) return Number(stored);
+    }
+    return null;
+  }
+
   public createPersonalInfo(data: any): void {
     this.registerService.createPersonalInfo(data).subscribe(
       response => {
         if (response?.AckCode === 1) {
           this.errorMessage = '';
           // Store the DB-generated id so the education step can reference it.
-          this.personalInfoId = response.personal_info_id ?? null;
+          this.storePersonalInfoId(this.extractPersonalInfoId(response));
           console.log('Personal info saved. personal_info_id =', this.personalInfoId);
           this.nextStep();
         } else {
@@ -284,14 +306,15 @@ loadEducationLevels(){
    public createEducationInfo(data: any): void {
     // personal_info_id is captured from the personal-info step and sent here
     // so the education record links to the correct employee.
-    if (this.personalInfoId == null) {
+    const personalInfoId = this.getStoredPersonalInfoId();
+    if (personalInfoId == null) {
       this.errorMessage = 'Please save the personal information step first.';
       console.error('Cannot save education: personalInfoId is not set.');
       return;
     }
 
     const payload = {
-      personalInfoId: this.personalInfoId,
+      personalInfoId: personalInfoId,
       educationLevelId: data.educationLevelId,
       institutionName: data.institutionName,
       courseName: data.courseName,
